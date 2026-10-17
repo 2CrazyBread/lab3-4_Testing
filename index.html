@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Керування товарами</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="page">
+    <header class="page-header">
+      <div>
+        <p class="eyebrow">АДМІНІСТРУВАННЯ</p>
+        <h1>Товари <span id="heading-count" class="count">0</span></h1>
+        <p class="muted">Додавайте, редагуйте та впорядковуйте товари каталогу.</p>
+      </div>
+      <button class="button primary" id="add-product-button" type="button">+ Додати товар</button>
+    </header>
+
+    <section class="stats" aria-label="Зведення каталогу">
+      <article class="stat"><span>Усього товарів</span><strong id="metric-total">0</strong></article>
+      <article class="stat"><span>Акційних</span><strong id="metric-special">0</strong></article>
+      <article class="stat"><span>Середня ціна</span><strong id="metric-average">₴0</strong></article>
+    </section>
+
+    <section class="catalog" aria-label="Каталог товарів">
+      <div class="toolbar">
+        <input id="search-input" type="search" placeholder="Пошук за назвою або ID" aria-label="Пошук за назвою або ID">
+        <select id="special-filter" aria-label="Фільтр за акційністю">
+          <option value="all">Усі товари</option>
+          <option value="special">Лише акційні</option>
+          <option value="regular">Без акції</option>
+        </select>
+        <label class="sort-label">Сортувати за
+          <select id="sort-by" aria-label="Поле сортування">
+            <option value="date">Датою</option>
+            <option value="price">Ціною</option>
+            <option value="special">Акційністю</option>
+          </select>
+        </label>
+        <button id="sort-direction" class="button secondary direction" type="button" aria-label="За спаданням" title="Змінити напрямок сортування">↓</button>
+      </div>
+
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Товар</th><th>ID</th><th>Ціна</th><th>Статус</th><th>Дата додавання</th><th>Дії</th></tr></thead>
+          <tbody id="product-list"></tbody>
+        </table>
+        <div id="empty-state" class="empty-state" hidden>
+          <h2 id="empty-title">Каталог порожній</h2>
+          <p id="empty-description">Додайте перший товар, щоб він з’явився тут.</p>
+          <button class="button primary" id="empty-add-button" type="button">+ Додати товар</button>
+        </div>
+      </div>
+      <footer class="catalog-footer"><span id="result-count">Показано 0 товарів</span><span id="save-status" role="status">Зміни збережено</span></footer>
+    </section>
+  </main>
+
+  <dialog id="product-dialog" aria-labelledby="dialog-title">
+    <form id="product-form" novalidate>
+      <header class="dialog-header">
+        <div><p class="eyebrow">КАТАЛОГ</p><h2 id="dialog-title">Новий товар</h2></div>
+        <button type="button" class="close-button" aria-label="Закрити">×</button>
+      </header>
+      <div id="form-error" class="form-error" role="alert" hidden></div>
+      <div class="form-grid">
+        <label>Назва товару <b>*</b><input id="product-name" name="name" type="text" maxlength="100" required></label>
+        <label>ID товару <b>*</b><input id="product-id" name="id" type="text" maxlength="40" required></label>
+        <label>Ціна, ₴ <b>*</b><input id="product-price" name="price" type="number" min="0" step="any" required></label>
+        <label>Дата додавання <b>*</b><input id="product-date" name="dateAdded" type="date" required></label>
+        <label class="special-field"><input id="product-special" name="special" type="checkbox"> Акційний товар</label>
+      </div>
+      <footer class="dialog-actions">
+        <button type="button" class="button secondary" id="cancel-button">Скасувати</button>
+        <button type="submit" class="button primary" id="save-button">Зберегти товар</button>
+      </footer>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
