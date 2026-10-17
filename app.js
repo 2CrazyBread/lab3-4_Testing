@@ -101,10 +101,10 @@
       el('empty-description').textContent = searching ? 'Змініть запит або фільтр і спробуйте ще раз.' : 'Додайте перший товар, щоб він з’явився у списку.';
       el('empty-add-button').hidden = searching;
     }
-    el('heading-count').textContent = products.length;
-    el('metric-total').textContent = products.length;
-    el('metric-special').textContent = products.filter((product) => product.special).length;
-    const average = products.length ? products.reduce((total, product) => total + product.price, 0) / products.length : 0;
+    el('heading-count').textContent = visible.length;
+    el('metric-total').textContent = visible.length;
+    el('metric-special').textContent = visible.filter((product) => product.special).length;
+    const average = visible.length ? visible.reduce((total, product) => total + product.price, 0) / visible.length : 0;
     el('metric-average').textContent = formatPrice(average);
     el('result-count').textContent = `Показано ${visible.length} ${productWord(visible.length)}`;
     el('save-status').textContent = products.length ? 'Зміни збережено' : 'Каталог готовий до роботи';
